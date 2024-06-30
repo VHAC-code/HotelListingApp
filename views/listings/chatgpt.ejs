@@ -1,0 +1,155 @@
+<% layout("/layouts/boilerplate") %>
+
+<script>  //this line is added from map.js in lec 3(b) our first map
+  const mapToken = "<%=process.env.MAP_TOKEN %>";
+</script>
+
+<div class="row mt-3">
+  <div class="col-8 offset-2">
+    <h3 style="margin-left: 200px"><%= listing2.title %></h3>
+
+    <div class="card col-8 offset-3 show-card listing-card">
+      <img
+        src="<%= listing2.image.url %>"
+        class="card-img-top show-img"
+        alt="listing_image"
+      />
+      <div class="card-body">
+        <p class="card-text">Owned by :  <i><%= listing2.owner.username %></i></p>
+          <!-- toLocaleString("en-IN") add as listing2.price.tolocaleString("") -->
+        
+         
+          <p class="card-text">  <%= listing2.description %> </p>
+          <p class="card-text">  &#8377;<%= listing2.price %>/night  </p>
+          
+          <p class="card-text"> <%= listing2.location %> </p>
+          
+          <p class="card-text">  <%= listing2.country %>  </p>
+       
+      </div>
+    </div>
+
+    <br />
+                                                  <!-- adding this if condition in 2(e) lec of authorization -->
+                                                 <!-- we removed this line from here in 2(e) listings authorization  if(currUser && currUser._id.equals(listing2.owner._id)){}  bcz we added it in a routes ke listing.js m -->
+     
+    <div class="btns">
+      <a
+        href="/listings/<%= listing2._id %>/edit"
+        class="btn btn-dark col-1 offset-3 edit-btn"
+        >edit</a
+      >
+
+      <form method="post" action="/listings/<%= listing2._id%>?_method=DELETE">
+        <button class="btn btn-dark offset-5">delete</button>
+      </form>
+    </div>
+   
+    <!-- Step 1. Cretaing a review form after defining review schema and review added in listing schema as a one to many relationship -->
+     <!--Step 2. Submitting the form by taking post request in /listings/listing.id/review create this route in app.js after then-->
+     <!--there is requirement of validation for reviews at both clien side and also at server side (with the help of joi) , for validation at client side first add required in textarea
+     just like we had done for new.ejs page and also for edit.ejs page from bootstrap-->
+     
+
+
+     <!-- 2(e) ka authorization reviews lec part m if condition add krenge -->
+    <div class="col-8 offset-3 mb-3">
+       
+        <% if(currUser) {%>
+          <hr>
+        <h4>Leave a Review</h4>
+        <form
+         action="/listings/<%=listing2.id%>/reviews" 
+         method="POST" 
+         novalidate 
+         class="needs-validation"
+         >
+            <!-- <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>   //we commented out it all in a 3(a) 4th lec
+                <input 
+                type="range"
+                 min="1" max="5" id="rating"
+                  name="review[rating]"
+                   class="form-range" 
+                   />
+
+            </div> -->
+              <!-- 3(a ) ka 5th lec -->
+
+              <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>
+<fieldset class="starability-slot">
+ 
+  
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+  </div>
+            <div class="mb-3 mt-3">
+                <label for="comment">Comments</label>
+                <textarea 
+                name="review[comment]" 
+                id="comment" cols="30" rows="5" 
+                class="form-control" 
+                required >
+            </textarea>
+            <div class="invalid-feedback">Please add some comments for review</div>
+            </div>
+            <button class="btn btn-outline-dark">Submit</button>
+        </form>
+        
+       
+        <% } %>
+        <!-- 2(a)=> showing reviews in show.ejs page -->
+         <!-- We will also style this review message showing place with bootstrap -->
+         <hr>
+
+        <% if(listing2.reviews.length > 0){%>
+         <div class="row">
+          <p><b>All Reviews</b></p>
+         <% for(review of listing2.reviews) { %>
+           <div class="card col-8 ms-3 mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@<%= review.author.username %></h5>
+                <p class="starability-result card-text" data-rating= "<%= review.rating %>"></p>          <!--this is added in 3(a) rating lec-->
+                <p class="card-text"><%= review.comment %></p>
+                
+               
+            </div>
+            <!-- this is 2(a) = deleting reviews part or lec -->
+            <form class="mb-3" method="POST" action="/listings/<%= listing2._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button class="btn btn-sm btn-dark">Delete</button>
+            </form>
+            </div>
+            </div>
+            <%}%>
+        </div>
+       <%}%>
+    
+    
+
+     <!-- this is map waale divs below -->
+     <div class="col-8 offset-0 mb-3">
+      <h3>Where you'll be</h3>
+      <div id="map"></div>
+
+     </div>
+
+
+     
+    
+  </div>
+  
+<!-- from map.js script added -->
+ <script src="/js/map.js">
+
+ </script>

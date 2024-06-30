@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- required = is a important keyword in input lines because if you do not fill the data in required space then form will not submit -->
+ <!-- we can use require for form validation but we can also use bootstrap validation class we will add these in form start => novalidate class = "needs-validation"  and we will copy the js logic from bootstrap validation page and will paste in public folder inside js in script.js and will add scipt tag in boilerplate.js -->
+<div class="row">
+    <div class="col-8 offset-2">
+        <br>
+        <br>
+<h3>Create New Listing</h3>
+<!-- enctype is added in 3(a) lecture of form1  //multipart form data ko parse krne ke liye we will download one package npm i multer-->
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-3"><lable for="title" class="form-label">Title</lable>
+            <input type="text" name="listing[title]" placeholder="Add a Catchy title" class="form-control" required>
+        <div class="valid-feedback">Title looks good!</div>   <!--here we are adding div inside title div and we are giving class = "valid-feedback" and then writes Tile looks good, so when we will fill the input boxes and give the title then this message will print below box -->
+        </div>  <!-- required is a constraint here it means title must be there in new page by client -->
+
+        
+   <div class="mb-3">
+   <lable for="description" class="form-label">Description</lable>
+    <textarea name="listing[description]" placeholder="enter description" class="form-control" required ></textarea>
+    <div class="invalid-feedback">Please enter a short description</div> <!--bootrap div-->
+</div>
+   <!-- comment out in 3(a) form lec -->
+<!-- <div class="mb-3">
+    <lable for="image" class="form-label">Image Link</lable>
+    <input type="text" name="listing[image]" placeholder="add image url/link" class="form-control" >
+ </div> -->
+<!-- this image extra section added in 3(a) form manipulating2   -->
+ <div class="mb-3">
+    <lable for="image" class="form-label">Upload Listing Image</lable>
+    <input type="file" name="listing[image]"  class="form-control"  required>
+   
+ </div>
+   
+ <div class="row">
+ <div class="mb-3 col-md-4">
+    <lable for="price" class="form-label">Price</lable>
+    <input  name="listing[price]" placeholder="1200/night" class="form-control" required >
+    <div type = "number" class="invalid-feedback">Price should be Valid!</div> <!--bootstrap div it gives message in input box if input box is not filled-->
+ </div>
+  
+ <div class="mb-3 col-md-8" >
+    <lable for="country" class="form-label">Country</lable>
+    <input type="text" name="listing[country]" placeholder="Bharat" class="form-control" required>
+    <div class="invalid-feedback">Country name should be valid!</div>  <!--bootstrap div-->
+ </div>
+
+</div>
+  
+   <div class="mb-3">
+    <lable for="location" class="form-label">Location</lable>
+    <input type="text" name="listing[location]" placeholder="Delhi" class="form-control" required>
+    <div class="invalid-feedback">Location should be valid!</div>    <!--bootstrap div-->
+   </div>
+   
+   <br>
+   <br>
+
+   
+  
+   <button class="btn btn-dark add-btn">Add</button>
+   <br><br>
+    </form>
+</div>
+</div>
+</body>

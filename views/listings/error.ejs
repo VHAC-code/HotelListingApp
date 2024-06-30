@@ -1,0 +1,12 @@
+<!-- here we will use bootstrap alerts for error in our page this is the part of error.ejs -->
+ <!-- go to bootstarp componemts and inside there is alerts use that -->
+
+ <% layout("/layouts/boilerplate") %>
+
+ <div class="row mt-3">
+    <div class="alert alert-danger col-6 offset-3" role="alert">
+       <h4 class="alert-heading"><%= err.message %></h4>
+       <p><%= err.stack %></p>
+      </div>
+ </div>
+ 
