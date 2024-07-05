@@ -1,5 +1,5 @@
 # Major-Project
-Project Overview
+
 Project Name: HotelListingApp
 
 Description:
