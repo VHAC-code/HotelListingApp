@@ -49,7 +49,7 @@ Frontend:
 
 React: For building user interfaces.
 Material-UI / Tailwind CSS: For styling and responsive design.
-Leaflet / Google Maps API: For map integration.
+MapBox map API: For map integration.
 Backend:
 
 Node.js / Express: For building the server-side logic and APIs.
